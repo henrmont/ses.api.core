@@ -15,11 +15,15 @@ class HospitalUnitySeeder extends Seeder
         HospitalUnity::insert([
             [
                 'name' => 'HOSPITAL DAS CLÍNICAS',
-                'cnes' => '123456'
+                'cnes' => '123456',
+                'city' => 'São Paulo',
+                'state' => 'SP'
             ],
             [
                 'name' => 'HOSPITAL DO AMOR',
-                'cnes' => '123456'
+                'cnes' => '123456',
+                'city' => 'Rio de Janeiro',
+                'state' => 'RJ'
             ]
         ]);
     }
