@@ -5,10 +5,12 @@ use App\Http\Middleware\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => 'api'], function ($router) {
-    // Profile
-    Route::patch('change/profile/module/{module}', [ProfileController::class, 'changeProfileModule'])->middleware(Auth::class);
-    Route::patch('change/profile/image', [ProfileController::class, 'changeProfileImage'])->middleware(Auth::class);
-    Route::patch('change/profile/info', [ProfileController::class, 'changeProfileInfo'])->middleware(Auth::class);
-
-});
+Route::middleware(['api', Auth::class])
+    ->prefix('core')
+    ->name('core.')
+    ->controller(ProfileController::class)
+    ->group(function () {
+        Route::patch('change-module/{module}', 'changeProfileModule')->name('change-module');
+        Route::patch('change-image', 'changeProfileImage')->name('change-image');
+        Route::patch('change-info', 'changeProfileInfo')->name('change-info');
+    });
