@@ -10,7 +10,7 @@ Route::middleware(['api', Auth::class])
     ->name('core.')
     ->controller(ProfileController::class)
     ->group(function () {
-        Route::patch('change-module/{module}', 'changeProfileModule')->name('change-module');
-        Route::patch('change-image', 'changeProfileImage')->name('change-image');
-        Route::patch('change-info', 'changeProfileInfo')->name('change-info');
+        Route::patch('change/profile/module/{module}', 'changeProfileModule')->name('change-module');
+        Route::patch('change/profile/image', 'changeProfileImage')->name('change-image');
+        Route::patch('change/profile/info', 'changeProfileInfo')->name('change-info');
     });
