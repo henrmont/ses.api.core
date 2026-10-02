@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('document_type');
             $table->string('document');
             $table->foreignId('file_document_id')->nullable();
-            $table->string('sigadoc');
             $table->timestamp('birth_date');
             $table->string('gender');
             $table->boolean('newborn')->nullable();
