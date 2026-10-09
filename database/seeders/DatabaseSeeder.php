@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             FDWSeeder::class,
             HospitalUnitySeeder::class,
-            WorkstationSeeder::class,
+            WorkplaceSeeder::class,
         ]);
     }
 }
