@@ -11,7 +11,8 @@ return new class extends Migration
         Schema::create('workplaces', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_id')->nullable();
-            $table->string('nome');
+            $table->string('name');
+            $table->string('budget_entity');
             $table->softDeletes();
             $table->timestamps();
         });

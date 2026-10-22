@@ -354,17 +354,34 @@ class WorkplaceSeeder extends Seeder
         });
     }
 
-    private function processarNos(array $nos, ?int $parentId = null): void
+    private function processarNos(array $nos, ?int $parentId = null, int $contadorGlobal = 1): int
     {
-        foreach ($nos as $nome => $filhos) {
+        foreach ($nos as $nomeOriginal => $filhos) {
+            $nomeLimpo = $this->limparNome($nomeOriginal);
+            
+            // Gera a string de 5 dígitos sem ponto (ex: '01001', '01002')
+            $budgetEntity = sprintf('%02d%03d', intdiv($contadorGlobal, 1000) + 1, $contadorGlobal % 1000);
+
             $workplace = Workplace::create([
-                'parent_id' => $parentId,
-                'nome' => trim($nome),
+                'parent_id'     => $parentId,
+                'name'          => $nomeLimpo,
+                'budget_entity' => $budgetEntity,
             ]);
 
+            $contadorGlobal++;
+
             if (!empty($filhos)) {
-                $this->processarNos($filhos, $workplace->id);
+                $contadorGlobal = $this->processarNos($filhos, $workplace->id, $contadorGlobal);
             }
         }
+
+        return $contadorGlobal;
+    }
+
+    private function limparNome(string $nome): string
+    {
+        // Remove numerações do início: "I - ", "1. ", "1.1.", "1.2.1.", etc.
+        $nomeLimpo = preg_replace('/^([IVXLCDM]+\s*[\-–]\s*|(\d+\.)+\s*)/i', '', $nome);
+        return trim($nomeLimpo);
     }
 }
